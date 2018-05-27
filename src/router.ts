@@ -9,10 +9,10 @@ const router = new Router();
 const handleWebhook = async (
   context: Router.IRouterContext,
   // controller: MonzoController | StarlingController,
-  controller: any,
+  genericTransactionController: any,
 ) => {
-  console.log('Received webhook');
-  console.log(JSON.stringify(context, undefined, '  '));
+  // console.log('Received webhook');
+  // console.log(JSON.stringify(context, undefined, '  '));
 
   if (context.request.query.secret !== process.env.URL_SECRET) {
     context.body = {
@@ -26,7 +26,9 @@ const handleWebhook = async (
   let transactionController;
 
   try {
-    transactionController = new controller(context.request.body);
+    transactionController = new genericTransactionController(
+      context.request.body,
+    );
   } catch (error) {
     console.error('error:', error);
 
