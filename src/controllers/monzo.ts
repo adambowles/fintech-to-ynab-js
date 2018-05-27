@@ -76,7 +76,7 @@ export default class MonzoController extends GenericController {
     console.log('Monzo transaction:', transaction);
     super({
       account_id: process.env.YNAB_MONZO_ACCOUNT_ID,
-      amount: transaction.data.amount,
+      amount: transaction.data.amount * 10,
       date: moment(transaction.data.created).toISOString(),
       memo: process.env.APPLY_MEMO || '',
       payee_name: transaction.data.merchant.name,

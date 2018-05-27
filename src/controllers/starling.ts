@@ -63,7 +63,7 @@ export default class StarlingController extends GenericController {
     console.log('Starling transaction:', transaction);
     super({
       account_id: process.env.YNAB_STARLING_ACCOUNT_ID,
-      amount: transaction.content.amount,
+      amount: transaction.content.amount * 1000,
       date: moment(transaction.timestamp).toISOString(),
       memo: process.env.APPLY_MEMO || '',
       payee_name: transaction.content.counterParty,
