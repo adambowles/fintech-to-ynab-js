@@ -11,6 +11,9 @@ const handleWebhook = async (
   // controller: MonzoController | StarlingController,
   controller: any,
 ) => {
+  console.log('Received webhook');
+  console.log(JSON.stringify(context, undefined, '  '));
+
   if (context.request.query.secret !== process.env.URL_SECRET) {
     context.body = {
       message: 'error',
