@@ -73,6 +73,7 @@ interface MonzoTransaction {
 
 export default class MonzoController extends GenericController {
   public constructor(transaction: MonzoTransaction) {
+    console.log('Monzo transaction:', transaction);
     super({
       account_id: process.env.YNAB_MONZO_ACCOUNT_ID,
       amount: transaction.data.amount,

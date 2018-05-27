@@ -88,6 +88,7 @@ interface StarlingTransaction {
 
 export default class StarlingController extends GenericController {
   public constructor(transaction: StarlingTransaction) {
+    console.log('Starling transaction:', transaction);
     let amount = transaction.transactionAmount.minorUnits;
     if (transaction.direction === 'REFUND') {
       amount = -amount;
