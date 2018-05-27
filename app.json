@@ -1,5 +1,5 @@
 {
-  "name": "Fintech to YNAB",
+  "name": "Fintech to YNAB (JS)",
   "description": "Automatically push Monzo and Starling transactions into YNAB",
   "repository": "https://github.com/adambowles/fintech-to-ynab-js",
   "keywords": ["monzo", "ynab", "starling"],
