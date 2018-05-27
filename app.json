@@ -1,0 +1,49 @@
+{
+  "name": "Fintech to YNAB",
+  "description": "Automatically push Monzo and Starling transactions into YNAB",
+  "repository": "https://github.com/adambowles/fintech-to-ynab-js",
+  "keywords": ["monzo", "ynab", "starling"],
+  "env": {
+    "YNAB_ACCESS_TOKEN": {
+      "description": "Your YNAB access token",
+      "required": true
+    },
+    "YNAB_BUDGET_ID": {
+      "description": "Budget ID",
+      "required": true
+    },
+    "YNAB_MONZO_ACCOUNT_ID": {
+      "description": "Monzo account ID",
+      "required": true
+    },
+    "YNAB_STARLING_ACCOUNT_ID": {
+      "description": "Starling account ID",
+      "required": true
+    },
+    "URL_SECRET": {
+      "description": "This is a secret used for the webhooks endpoint",
+      "required": true,
+      "generator": "secret"
+    },
+    "APPLY_MEMO": {
+      "description": "Apply this string to all imported transactions",
+      "value": "Auto imported using fintech-to-ynab-js by @adambowles",
+      "required": false
+    },
+    "AUTO_CLEAR": {
+      "description": "(NOT YET IMPLEMENTED) Whether to automatically clear imported transactions",
+      "value": "false",
+      "required": false
+    },
+    "MONZO_APPLY_FLAG": {
+      "description": "(NOT YET IMPLEMENTED) Colour flag applied to Monzo transactions",
+      "value": "blue",
+      "required": false
+    },
+    "STARLING_APPLY_FLAG": {
+      "description": "(NOT YET IMPLEMENTED) Colour flag applied to Starling transactions",
+      "value": "purple",
+      "required": false
+    }
+  }
+}
