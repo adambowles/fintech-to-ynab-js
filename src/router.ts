@@ -25,7 +25,7 @@ const handleWebhook = async (
   try {
     transactionController = new controller(context.request.body);
   } catch (error) {
-    console.log('error:', error);
+    console.error('error:', error);
 
     context.body = {
       message: 'error',
@@ -42,12 +42,17 @@ const handleWebhook = async (
         throw error.error;
       });
 
+    console.log(
+      'Created transaction:',
+      JSON.stringify(transaction, undefined, '  '),
+    );
+
     context.body = {
       message: 'success',
       transaction: transaction,
     };
   } catch (error) {
-    console.log('error:', error);
+    console.error('error:', error);
 
     context.body = {
       message: 'error',
