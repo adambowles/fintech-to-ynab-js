@@ -34,6 +34,12 @@ interface MonzoTransaction {
       name: string;
       category: string;
     };
+    counterparty: {
+      name: string;
+    };
+    metadata: {
+      is_topup: boolean;
+    };
   };
 }
 
@@ -74,12 +80,24 @@ interface MonzoTransaction {
 export default class MonzoController extends GenericController {
   public constructor(transaction: MonzoTransaction) {
     console.log('Monzo transaction:', transaction);
+
+    let payee_name = transaction.data.description;
+    if (transaction.data.merchant) {
+      payee_name = transaction.data.merchant.name;
+    }
+    if (transaction.data.counterparty) {
+      payee_name = transaction.data.counterparty.name;
+    }
+    if (transaction.data.metadata.is_topup) {
+      payee_name = transaction.data.counterparty.name;
+    }
+
     super({
       account_id: process.env.YNAB_MONZO_ACCOUNT_ID,
       amount: transaction.data.amount * 10,
       date: moment(transaction.data.created).toISOString(),
       memo: process.env.APPLY_MEMO || '',
-      payee_name: transaction.data.merchant.name,
+      payee_name,
       // cleared: ynab.TransactionDetail.ClearedEnum['cleared'],
       // flag_color: ynab.TransactionDetail.FlagColorEnum['blue'],
     });
