@@ -46,6 +46,22 @@ interface MonzoTransaction {
   };
 }
 
+const determinePayeeName = (transaction: MonzoTransaction): string => {
+  try {
+    return transaction.data.merchant.name;
+  } catch (error) {}
+
+  try {
+    return transaction.data.counterparty.name;
+  } catch (error) {}
+
+  if (transaction.data.metadata.is_topup) {
+    return 'Topup';
+  }
+
+  return transaction.data.description;
+};
+
 export default class MonzoController extends GenericController {
   public constructor(transaction: MonzoTransaction) {
     console.log(
@@ -53,17 +69,9 @@ export default class MonzoController extends GenericController {
       JSON.stringify(transaction, undefined, '  '),
     );
 
-    let payee_name = transaction.data.description;
     let memo = '';
-    if (transaction.data.merchant) {
-      payee_name = transaction.data.merchant.name;
-    }
     if (transaction.data.counterparty) {
-      payee_name = transaction.data.counterparty.name;
       memo = transaction.data.notes;
-    }
-    if (transaction.data.metadata.is_topup) {
-      payee_name = 'Topup';
     }
 
     let flag_color: ynab.TransactionDetail.FlagColorEnum;
@@ -90,7 +98,7 @@ export default class MonzoController extends GenericController {
       date: moment(transaction.data.created).toISOString(),
       flag_color,
       memo,
-      payee_name,
+      payee_name: determinePayeeName(transaction),
     });
   }
 }
