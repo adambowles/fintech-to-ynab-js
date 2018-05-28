@@ -1,8 +1,8 @@
 import * as ynab from 'ynab';
-import * as moment from 'moment';
+
 require('dotenv').config();
 
-import GenericController from './generic';
+import AbstractController from './abstract';
 
 interface StarlingTransaction {
   content: {
@@ -43,40 +43,42 @@ interface StarlingTransaction {
   uid: string;
 }
 
-export default class StarlingController extends GenericController {
+export default class StarlingController extends AbstractController {
   public constructor(transaction: StarlingTransaction) {
+    super();
+
     console.log(
-      'Received Starling transaction:',
+      'Received Monzo transaction:',
       JSON.stringify(transaction, undefined, '  '),
     );
 
-    let memo = '';
+    this.account_id = process.env.YNAB_STARLING_ACCOUNT_ID;
+    this.amount = transaction.content.amount * 1000;
+    this.date = transaction.timestamp;
+    this.payee_name = this.determinePayeeName(transaction);
+
     if (transaction.content.reference) {
-      memo = transaction.content.reference;
+      this.memo = transaction.content.reference;
     }
 
     let flag_color: ynab.TransactionDetail.FlagColorEnum;
     if (process.env.FOREIGN_CURRENCY_APPLY_FLAG) {
       if (transaction.content.sourceCurrency !== 'GBP') {
-        flag_color =
+        this.flag_color =
           ynab.TransactionDetail.FlagColorEnum[
             process.env
               .FOREIGN_CURRENCY_APPLY_FLAG as keyof typeof ynab.TransactionDetail.FlagColorEnum
           ];
 
         // TODO does Starling give local currency amount?
-        memo = `(${transaction.content.sourceCurrency}) ${memo}`;
+        this.memo = `(${transaction.content.sourceCurrency}) ${this.memo}`;
       }
     }
-
-    super({
-      account_id: process.env.YNAB_STARLING_ACCOUNT_ID,
-      amount: transaction.content.amount * 1000,
-      // category_name: string,
-      date: moment(transaction.timestamp).toISOString(),
-      flag_color,
-      memo,
-      payee_name: transaction.content.counterParty,
-    });
   }
+
+  private readonly determinePayeeName = (
+    transaction: StarlingTransaction,
+  ): string => {
+    return transaction.content.counterParty;
+  };
 }

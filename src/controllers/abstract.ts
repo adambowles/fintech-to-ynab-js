@@ -1,11 +1,21 @@
+import * as moment from 'moment';
 import * as ynab from 'ynab';
+
 require('dotenv').config();
 
-export default class GenericController {
-  public readonly ynab: ynab.api;
-  public readonly transaction: ynab.SaveTransaction;
+export default abstract class AbstractController {
+  private readonly ynab: ynab.api;
 
-  constructor(transaction: ynab.SaveTransaction) {
+  public account_id: string;
+  public amount: number;
+  // public category_id: string;
+  public cleared: ynab.TransactionDetail.ClearedEnum;
+  public date: string;
+  public flag_color: ynab.TransactionDetail.FlagColorEnum;
+  public memo: string;
+  public payee_name: string;
+
+  constructor() {
     this.ynab = new ynab.API(process.env.YNAB_ACCESS_TOKEN);
 
     // Fuck me Microsoft, this is ugly
@@ -19,29 +29,32 @@ export default class GenericController {
           'cleared' as keyof typeof ynab.TransactionDetail.ClearedEnum
         ];
     }
-    transaction.cleared = cleared;
+    this.cleared = cleared;
 
-    if (!transaction.flag_color && process.env.DOMESTIC_CURRENCY_APPLY_FLAG) {
+    if (!this.flag_color && process.env.DOMESTIC_CURRENCY_APPLY_FLAG) {
       let flag_color: ynab.TransactionDetail.FlagColorEnum;
       flag_color =
         ynab.TransactionDetail.FlagColorEnum[
           process.env
             .DOMESTIC_CURRENCY_APPLY_FLAG as keyof typeof ynab.TransactionDetail.FlagColorEnum
         ];
-      transaction.flag_color = flag_color;
+
+      this.flag_color = flag_color;
     }
 
-    const baseMemo = process.env.APPLY_MEMO || '';
-    transaction.memo = `${transaction.memo} ${baseMemo}`
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    this.transaction = transaction;
+    this.memo = process.env.APPLY_MEMO || '';
   }
 
   public async createTransaction(): Promise<ynab.SaveTransaction> {
-    const transaction: ynab.SaveTransactionWrapper = {
-      transaction: this.transaction,
+    const transaction: ynab.SaveTransaction = {
+      account_id: this.account_id,
+      amount: this.amount,
+      // category_id: this.category_id,
+      cleared: this.cleared,
+      date: moment(this.date).toISOString(),
+      flag_color: this.flag_color,
+      memo: this.memo.replace(/\s+/g, ' ').trim(),
+      payee_name: this.payee_name,
     };
 
     console.log(
@@ -52,10 +65,12 @@ export default class GenericController {
     try {
       await this.ynab.transactions.createTransaction(
         process.env.YNAB_BUDGET_ID,
-        transaction,
+        {
+          transaction,
+        },
       );
 
-      return this.transaction;
+      return transaction;
     } catch (error) {
       throw error;
     }
