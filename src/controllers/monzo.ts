@@ -54,7 +54,7 @@ export default class MonzoController extends GenericController {
     );
 
     let payee_name = transaction.data.description;
-    let memo: string;
+    let memo = '';
     if (transaction.data.merchant) {
       payee_name = transaction.data.merchant.name;
     }

@@ -49,7 +49,8 @@ export default class StarlingController extends GenericController {
       'Received Starling transaction:',
       JSON.stringify(transaction, undefined, '  '),
     );
-    let memo: string;
+
+    let memo = '';
     if (transaction.content.reference) {
       memo = transaction.content.reference;
     }

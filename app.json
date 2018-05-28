@@ -36,8 +36,13 @@
       "required": false
     },
     "FOREIGN_CURRENCY_APPLY_FLAG": {
-      "description": "Colour flag applied to foreign transactions",
+      "description": "Colour flag applied to foreign currency transactions",
       "value": "orange",
+      "required": false
+    },
+    "DOMESTIC_CURRENCY_APPLY_FLAG": {
+      "description": "Colour flag applied to domestic currency transactions",
+      "value": "green",
       "required": false
     }
   }
