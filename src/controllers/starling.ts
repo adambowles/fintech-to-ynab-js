@@ -10,6 +10,7 @@ interface StarlingTransaction {
     sourceCurrency: string;
     forCustomer: string;
     counterParty: string;
+    reference: string;
     transactionUid: string;
     type:
       | 'INTEREST_CHARGE'
@@ -48,9 +49,12 @@ export default class StarlingController extends GenericController {
       'Received Starling transaction:',
       JSON.stringify(transaction, undefined, '  '),
     );
+    let memo: string;
+    if (transaction.content.reference) {
+      memo = transaction.content.reference;
+    }
 
     let flag_color: ynab.TransactionDetail.FlagColorEnum;
-    let memo: string;
     if (process.env.FOREIGN_CURRENCY_APPLY_FLAG) {
       if (transaction.content.sourceCurrency !== 'GBP') {
         flag_color =
@@ -60,7 +64,7 @@ export default class StarlingController extends GenericController {
           ];
 
         // TODO does Starling give local currency amount?
-        memo = `${transaction.content.sourceCurrency}`;
+        memo = `(${transaction.content.sourceCurrency}) ${memo}`;
       }
     }
 

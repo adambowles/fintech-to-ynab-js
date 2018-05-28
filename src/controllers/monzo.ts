@@ -48,10 +48,10 @@ interface MonzoTransaction {
 
 export default class MonzoController extends GenericController {
   public constructor(transaction: MonzoTransaction) {
-    // console.log(
-    //   'Received Monzo transaction:',
-    //   JSON.stringify(transaction, undefined, '  '),
-    // );
+    console.log(
+      'Received Monzo transaction:',
+      JSON.stringify(transaction, undefined, '  '),
+    );
 
     let payee_name = transaction.data.description;
     let memo: string;
@@ -79,7 +79,7 @@ export default class MonzoController extends GenericController {
         let { local_amount } = transaction.data;
         local_amount = local_amount * 10;
 
-        memo = `${transaction.data.local_amount} ${local_currency}`;
+        memo = `(${transaction.data.local_amount} ${local_currency}) ${memo}`;
       }
     }
 
