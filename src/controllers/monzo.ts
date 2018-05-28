@@ -9,8 +9,10 @@ interface MonzoTransaction {
   data: {
     account_id: string;
     amount: number;
+    local_amount: number;
     created: string;
     currency: string;
+    local_currency: string;
     description: string;
     id: string;
     category: string;
@@ -79,7 +81,10 @@ interface MonzoTransaction {
 
 export default class MonzoController extends GenericController {
   public constructor(transaction: MonzoTransaction) {
-    console.log('Monzo transaction:', transaction);
+    console.log(
+      'Received Monzo transaction:',
+      JSON.stringify(transaction, undefined, '  '),
+    );
 
     let payee_name = transaction.data.description;
     if (transaction.data.merchant) {
@@ -92,13 +97,31 @@ export default class MonzoController extends GenericController {
       payee_name = 'Topup';
     }
 
+    let flag_color: ynab.TransactionDetail.FlagColorEnum;
+    let memo: string;
+    if (process.env.FOREIGN_CURRENCY_APPLY_FLAG) {
+      if (transaction.data.local_currency !== 'GBP') {
+        flag_color =
+          ynab.TransactionDetail.FlagColorEnum[
+            process.env
+              .FOREIGN_CURRENCY_APPLY_FLAG as keyof typeof ynab.TransactionDetail.FlagColorEnum
+          ];
+
+        const { local_currency } = transaction.data;
+        let { local_amount } = transaction.data;
+        local_amount = local_amount * 10;
+
+        memo = `${transaction.data.local_amount} ${local_currency}`;
+      }
+    }
+
     super({
       account_id: process.env.YNAB_MONZO_ACCOUNT_ID,
       amount: transaction.data.amount * 10,
       date: moment(transaction.data.created).toISOString(),
-      memo: process.env.APPLY_MEMO || '',
+      flag_color,
+      memo,
       payee_name,
-      // flag_color: ynab.TransactionDetail.FlagColorEnum['blue'],
     });
     // category_name: string,
   }

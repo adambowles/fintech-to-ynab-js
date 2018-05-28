@@ -61,17 +61,32 @@ const exampleStarlingTransaction: StarlingTransaction = {
 export default class StarlingController extends GenericController {
   public constructor(transaction: StarlingTransaction) {
     console.log(
-      'Starling transaction:',
+      'Received Starling transaction:',
       JSON.stringify(transaction, undefined, '  '),
     );
+
+    let flag_color: ynab.TransactionDetail.FlagColorEnum;
+    let memo: string;
+    if (process.env.FOREIGN_CURRENCY_APPLY_FLAG) {
+      if (transaction.content.sourceCurrency !== 'GBP') {
+        flag_color =
+          ynab.TransactionDetail.FlagColorEnum[
+            process.env
+              .FOREIGN_CURRENCY_APPLY_FLAG as keyof typeof ynab.TransactionDetail.FlagColorEnum
+          ];
+
+        // TODO does Starling give local currency amount?
+        memo = `${transaction.content.sourceCurrency}`;
+      }
+    }
 
     super({
       account_id: process.env.YNAB_STARLING_ACCOUNT_ID,
       amount: transaction.content.amount * 1000,
       date: moment(transaction.timestamp).toISOString(),
-      memo: process.env.APPLY_MEMO || '',
+      flag_color,
+      memo,
       payee_name: transaction.content.counterParty,
-      // flag_color,
     });
     // category_name: string,
   }

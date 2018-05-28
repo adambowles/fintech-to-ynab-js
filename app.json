@@ -35,14 +35,9 @@
       "value": "false",
       "required": false
     },
-    "MONZO_APPLY_FLAG": {
-      "description": "(NOT YET IMPLEMENTED) Colour flag applied to Monzo transactions",
-      "value": "blue",
-      "required": false
-    },
-    "STARLING_APPLY_FLAG": {
-      "description": "(NOT YET IMPLEMENTED) Colour flag applied to Starling transactions",
-      "value": "purple",
+    "FOREIGN_CURRENCY_APPLY_FLAG": {
+      "description": "Colour flag applied to foreign transactions",
+      "value": "orange",
       "required": false
     }
   }

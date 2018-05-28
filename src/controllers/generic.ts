@@ -22,6 +22,14 @@ export default class GenericController {
 
     transaction.cleared = cleared;
 
+    const baseMemo = process.env.APPLY_MEMO || '';
+
+    if (transaction.flag_color) {
+      transaction.memo = `(${transaction.memo}) ${baseMemo}`.trim();
+    } else {
+      transaction.memo = baseMemo;
+    }
+
     this.transaction = transaction;
   }
 
@@ -30,7 +38,10 @@ export default class GenericController {
       transaction: this.transaction,
     };
 
-    console.log('transaction:', JSON.stringify(transaction, undefined, '  '));
+    console.log(
+      'Creating transaction:',
+      JSON.stringify(transaction, undefined, '  '),
+    );
 
     try {
       await this.ynab.transactions.createTransaction(
