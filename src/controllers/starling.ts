@@ -42,22 +42,6 @@ interface StarlingTransaction {
   uid: string;
 }
 
-const exampleStarlingTransaction: StarlingTransaction = {
-  content: {
-    amount: -24.99,
-    sourceCurrency: 'GBP',
-    forCustomer: '£-24.99 @ Starling Bank',
-    counterParty: 'Starling Bank',
-    transactionUid: 'fc075558-9511-4e77-a196-99a8107af2b4',
-    type: 'TRANSACTION_CARD',
-    merchantUid: 'fc075558-9511-4e77-a196-99a8107af2b4',
-    merchantLocationUid: 'fc075558-9511-4e77-a196-99a8107af2b4',
-    customerUid: 'fc075558-9511-4e77-a196-99a8107af2b4',
-  },
-  timestamp: '2017-06-05T11:47:58.801Z',
-  uid: 'fc075558-9511-4e77-a196-99a8107af2b4',
-};
-
 export default class StarlingController extends GenericController {
   public constructor(transaction: StarlingTransaction) {
     console.log(
@@ -83,11 +67,11 @@ export default class StarlingController extends GenericController {
     super({
       account_id: process.env.YNAB_STARLING_ACCOUNT_ID,
       amount: transaction.content.amount * 1000,
+      // category_name: string,
       date: moment(transaction.timestamp).toISOString(),
       flag_color,
       memo,
       payee_name: transaction.content.counterParty,
     });
-    // category_name: string,
   }
 }

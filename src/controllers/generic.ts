@@ -24,11 +24,11 @@ export default class GenericController {
 
     const baseMemo = process.env.APPLY_MEMO || '';
 
-    if (transaction.flag_color) {
-      transaction.memo = `(${transaction.memo}) ${baseMemo}`.trim();
-    } else {
-      transaction.memo = baseMemo;
-    }
+    // if (transaction.flag_color) {
+    transaction.memo = `(${transaction.memo}) ${baseMemo}`.trim();
+    // } else {
+    //   transaction.memo = baseMemo;
+    // }
 
     this.transaction = transaction;
   }

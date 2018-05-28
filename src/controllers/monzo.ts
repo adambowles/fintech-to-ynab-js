@@ -18,6 +18,7 @@ interface MonzoTransaction {
     category: string;
     is_load: boolean;
     settled: boolean;
+    notes: string;
     merchant: {
       address: {
         address: string;
@@ -45,60 +46,27 @@ interface MonzoTransaction {
   };
 }
 
-// const exampleMonzoTransaction: MonzoTransaction = {
-//   type: 'transaction.created',
-//   data: {
-//     account_id: 'acc_00008gju41AHyfLUzBUk8A',
-//     amount: -350,
-//     created: '2015-09-04T14:28:40Z',
-//     currency: 'GBP',
-//     description: 'Ozone Coffee Roasters',
-//     id: 'tx_00008zjky19HyFLAzlUk7t',
-//     category: 'eating_out',
-//     is_load: false,
-//     settled: true,
-//     merchant: {
-//       address: {
-//         address: '98 Southgate Road',
-//         city: 'London',
-//         country: 'GB',
-//         latitude: 51.54151,
-//         longitude: -0.08482400000002599,
-//         postcode: 'N1 3JD',
-//         region: 'Greater London',
-//       },
-//       created: '2015-08-22T12:20:18Z',
-//       group_id: 'grp_00008zIcpbBOaAr7TTP3sv',
-//       id: 'merch_00008zIcpbAKe8shBxXUtl',
-//       logo:
-//         'https://pbs.twimg.com/profile_images/527043602623389696/68_SgUWJ.jpeg',
-//       emoji: '🍞',
-//       name: 'The De Beauvoir Deli Co.',
-//       category: 'eating_out',
-//     },
-//   },
-// };
-
 export default class MonzoController extends GenericController {
   public constructor(transaction: MonzoTransaction) {
-    console.log(
-      'Received Monzo transaction:',
-      JSON.stringify(transaction, undefined, '  '),
-    );
+    // console.log(
+    //   'Received Monzo transaction:',
+    //   JSON.stringify(transaction, undefined, '  '),
+    // );
 
     let payee_name = transaction.data.description;
+    let memo: string;
     if (transaction.data.merchant) {
       payee_name = transaction.data.merchant.name;
     }
     if (transaction.data.counterparty) {
       payee_name = transaction.data.counterparty.name;
+      memo = transaction.data.notes;
     }
     if (transaction.data.metadata.is_topup) {
       payee_name = 'Topup';
     }
 
     let flag_color: ynab.TransactionDetail.FlagColorEnum;
-    let memo: string;
     if (process.env.FOREIGN_CURRENCY_APPLY_FLAG) {
       if (transaction.data.local_currency !== 'GBP') {
         flag_color =
@@ -118,11 +86,11 @@ export default class MonzoController extends GenericController {
     super({
       account_id: process.env.YNAB_MONZO_ACCOUNT_ID,
       amount: transaction.data.amount * 10,
+      // category_name: string,
       date: moment(transaction.data.created).toISOString(),
       flag_color,
       memo,
       payee_name,
     });
-    // category_name: string,
   }
 }
