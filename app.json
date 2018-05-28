@@ -31,7 +31,7 @@
       "required": false
     },
     "AUTO_CLEAR": {
-      "description": "(NOT YET IMPLEMENTED) Whether to automatically clear imported transactions",
+      "description": "Whether to automatically clear imported transactions",
       "value": "false",
       "required": false
     },

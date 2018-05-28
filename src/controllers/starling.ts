@@ -60,15 +60,18 @@ const exampleStarlingTransaction: StarlingTransaction = {
 
 export default class StarlingController extends GenericController {
   public constructor(transaction: StarlingTransaction) {
-    console.log('Starling transaction:', transaction);
+    console.log(
+      'Starling transaction:',
+      JSON.stringify(transaction, undefined, '  '),
+    );
+
     super({
       account_id: process.env.YNAB_STARLING_ACCOUNT_ID,
       amount: transaction.content.amount * 1000,
       date: moment(transaction.timestamp).toISOString(),
       memo: process.env.APPLY_MEMO || '',
       payee_name: transaction.content.counterParty,
-      // cleared: ynab.TransactionDetail.ClearedEnum['cleared'],
-      // flag_color: ynab.TransactionDetail.FlagColorEnum['blue'],
+      // flag_color,
     });
     // category_name: string,
   }

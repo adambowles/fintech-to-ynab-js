@@ -98,7 +98,6 @@ export default class MonzoController extends GenericController {
       date: moment(transaction.data.created).toISOString(),
       memo: process.env.APPLY_MEMO || '',
       payee_name,
-      // cleared: ynab.TransactionDetail.ClearedEnum['cleared'],
       // flag_color: ynab.TransactionDetail.FlagColorEnum['blue'],
     });
     // category_name: string,
