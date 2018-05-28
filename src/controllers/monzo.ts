@@ -89,7 +89,7 @@ export default class MonzoController extends GenericController {
       payee_name = transaction.data.counterparty.name;
     }
     if (transaction.data.metadata.is_topup) {
-      payee_name = transaction.data.counterparty.name;
+      payee_name = 'Topup';
     }
 
     super({
