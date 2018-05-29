@@ -21,7 +21,7 @@ See [YNAB's developer docs](https://api.youneedabudget.com/).
 See [YNAB's developer docs](https://api.youneedabudget.com/).
 
 `URL_SECRET`
-If deploying to Heroku this will be auto generated for you, find it in the 'Config vars' section of your Heroku settings (https://dashboard.heroku.com/apps/<my-app-name>/settings). It will be in the format of a 64 character hexadecimal string
+If deploying to Heroku this will be auto generated for you, find it in the 'Config vars' section of your Heroku settings (https://dashboard.heroku.com/apps/your-app-name/settings). It will be in the format of a 64 character hexadecimal string
 
 `APPLY_MEMO`
 Whatever string you want to write into the memo field of every transaction, e.g. "Auto imported". So you can quickly recognise automatically import transactions
