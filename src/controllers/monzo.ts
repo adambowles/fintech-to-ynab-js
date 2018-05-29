@@ -65,22 +65,24 @@ export default class MonzoController extends AbstractController {
       this.memo = transaction.data.notes;
     }
 
-    let flag_color: ynab.TransactionDetail.FlagColorEnum;
-    if (process.env.FOREIGN_CURRENCY_APPLY_FLAG) {
-      if (transaction.data.local_currency !== 'GBP') {
+    if (transaction.data.local_currency !== 'GBP') {
+      const local_amount = currency.format(
+        transaction.data.local_amount / 100,
+        {
+          code: transaction.data.local_currency,
+        },
+      );
+
+      this.memo = `(${local_amount} ${transaction.data.local_currency}) ${
+        this.memo
+      }`;
+
+      if (process.env.FOREIGN_CURRENCY_APPLY_FLAG) {
         this.flag_color =
           ynab.TransactionDetail.FlagColorEnum[
             process.env
               .FOREIGN_CURRENCY_APPLY_FLAG as keyof typeof ynab.TransactionDetail.FlagColorEnum
           ];
-
-        const { local_currency } = transaction.data;
-        let local_amount: string;
-        local_amount = currency.format(transaction.data.local_amount / 100, {
-          code: local_currency,
-        });
-
-        this.memo = `(${local_amount} ${local_currency}) ${this.memo}`;
       }
     }
   }

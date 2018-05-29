@@ -31,15 +31,12 @@ export default abstract class AbstractController {
     }
     this.cleared = cleared;
 
-    if (!this.flag_color && process.env.DOMESTIC_CURRENCY_APPLY_FLAG) {
-      let flag_color: ynab.TransactionDetail.FlagColorEnum;
-      flag_color =
+    if (process.env.DOMESTIC_CURRENCY_APPLY_FLAG) {
+      this.flag_color =
         ynab.TransactionDetail.FlagColorEnum[
           process.env
             .DOMESTIC_CURRENCY_APPLY_FLAG as keyof typeof ynab.TransactionDetail.FlagColorEnum
         ];
-
-      this.flag_color = flag_color;
     }
 
     this.memo = process.env.APPLY_MEMO || '';

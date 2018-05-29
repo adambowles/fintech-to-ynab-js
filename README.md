@@ -8,7 +8,6 @@ Installing and gathering of requisite information is very similar to fintech-to-
 
 ## Environment variables explained
 
-
 variable | description
 --- | ---
 `YNAB_ACCESS_TOKEN` | Find this via: [YNAB's developer docs](https://api.youneedabudget.com/). It will be in the format of a 64 character hexadecimal string

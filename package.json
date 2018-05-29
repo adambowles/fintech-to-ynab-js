@@ -34,6 +34,7 @@
     "@types/koa": "^2.0.45",
     "@types/koa-bodyparser": "^4.2.0",
     "@types/koa-router": "^7.0.28",
-    "@types/moment": "^2.13.0"
+    "@types/moment": "^2.13.0",
+    "@types/node": "^8.10.17"
   }
 }

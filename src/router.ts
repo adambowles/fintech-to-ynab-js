@@ -1,5 +1,4 @@
 import * as Router from 'koa-router';
-import * as ynab from 'ynab';
 
 import MonzoController from './controllers/monzo';
 import StarlingController from './controllers/starling';
@@ -8,8 +7,8 @@ const router = new Router();
 
 const handleWebhook = async (
   context: Router.IRouterContext,
+  controller: any,
   // controller: MonzoController | StarlingController,
-  genericTransactionController: any,
 ) => {
   if (context.request.query.secret !== process.env.URL_SECRET) {
     context.body = {
@@ -23,7 +22,7 @@ const handleWebhook = async (
   let transactionController;
 
   try {
-    transactionController = new genericTransactionController(
+    transactionController = new controller(
       context.request.body,
     );
   } catch (error) {

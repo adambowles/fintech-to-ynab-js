@@ -48,7 +48,7 @@ export default class StarlingController extends AbstractController {
     super();
 
     console.log(
-      'Received Monzo transaction:',
+      'Received Starling transaction:',
       JSON.stringify(transaction, undefined, '  '),
     );
 
@@ -61,7 +61,6 @@ export default class StarlingController extends AbstractController {
       this.memo = transaction.content.reference;
     }
 
-    let flag_color: ynab.TransactionDetail.FlagColorEnum;
     if (process.env.FOREIGN_CURRENCY_APPLY_FLAG) {
       if (transaction.content.sourceCurrency !== 'GBP') {
         this.flag_color =
