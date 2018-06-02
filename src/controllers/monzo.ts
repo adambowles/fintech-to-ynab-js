@@ -67,7 +67,7 @@ export default class MonzoController extends AbstractController {
 
     if (transaction.data.local_currency !== 'GBP') {
       const local_amount = currency.format(
-        transaction.data.local_amount / 100,
+        Math.abs(transaction.data.local_amount / 100),
         {
           code: transaction.data.local_currency,
         },
