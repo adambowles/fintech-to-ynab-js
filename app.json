@@ -14,11 +14,11 @@
     },
     "YNAB_MONZO_ACCOUNT_ID": {
       "description": "Monzo account ID",
-      "required": true
+      "required": false
     },
     "YNAB_STARLING_ACCOUNT_ID": {
       "description": "Starling account ID",
-      "required": true
+      "required": false
     },
     "URL_SECRET": {
       "description": "This is a secret used for the webhooks endpoint",
