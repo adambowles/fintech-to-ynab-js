@@ -2,13 +2,11 @@ import * as moment from 'moment';
 import * as ynab from 'ynab';
 
 require('dotenv').config();
+const ynabAPI: ynab.api = new ynab.API(process.env.YNAB_ACCESS_TOKEN);
 
 export default abstract class AbstractController {
-  private readonly ynab: ynab.api;
-
   public account_id: string;
   public amount: number;
-  // public category_id: string;
   public cleared: ynab.TransactionDetail.ClearedEnum;
   public date: string;
   public flag_color: ynab.TransactionDetail.FlagColorEnum;
@@ -16,8 +14,6 @@ export default abstract class AbstractController {
   public payee_name: string;
 
   constructor() {
-    this.ynab = new ynab.API(process.env.YNAB_ACCESS_TOKEN);
-
     // Fuck me Microsoft, this is ugly
     let cleared: ynab.TransactionDetail.ClearedEnum =
       ynab.TransactionDetail.ClearedEnum[
@@ -46,7 +42,6 @@ export default abstract class AbstractController {
     const transaction: ynab.SaveTransaction = {
       account_id: this.account_id,
       amount: this.amount,
-      // category_id: this.category_id,
       cleared: this.cleared,
       date: moment(this.date).toISOString(),
       flag_color: this.flag_color,
@@ -60,7 +55,7 @@ export default abstract class AbstractController {
     );
 
     try {
-      await this.ynab.transactions.createTransaction(
+      await ynabAPI.transactions.createTransaction(
         process.env.YNAB_BUDGET_ID,
         {
           transaction,
