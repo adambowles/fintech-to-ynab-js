@@ -23,7 +23,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "moment": "^2.22.2",
-    "nodemon": "^1.17.5",
+    "nodemon": "^1.18.3",
     "ts-node": "^6.0.5",
     "typescript": "^2.8.3",
     "ynab": "^0.17.0"
