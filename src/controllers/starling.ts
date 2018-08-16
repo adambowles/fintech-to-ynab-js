@@ -55,7 +55,7 @@ export default class StarlingController extends AbstractController {
     this.account_id = process.env.YNAB_STARLING_ACCOUNT_ID;
     this.amount = transaction.content.amount * 1000;
     this.date = transaction.timestamp;
-    this.payee_name = this.determinePayeeName(transaction);
+    this.payee_name = this.determinePayeeName(transaction).substr(0, 50);
 
     if (transaction.content.reference) {
       this.memo = transaction.content.reference;

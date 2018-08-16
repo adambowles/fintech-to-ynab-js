@@ -59,7 +59,7 @@ export default class MonzoController extends AbstractController {
     this.account_id = process.env.YNAB_MONZO_ACCOUNT_ID;
     this.amount = transaction.data.amount * 10;
     this.date = transaction.data.created;
-    this.payee_name = this.determinePayeeName(transaction);
+    this.payee_name = this.determinePayeeName(transaction).substr(0, 50);
 
     if (transaction.data.counterparty) {
       this.memo = transaction.data.notes;
