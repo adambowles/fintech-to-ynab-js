@@ -12,4 +12,5 @@ app.use(router.routes());
 const port = process.env.PORT || 3000;
 app.listen(port);
 
+console.log(`Node version: ${process.versions.node}`);
 console.log(`Server running on port ${port}`);
