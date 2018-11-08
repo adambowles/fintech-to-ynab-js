@@ -39,6 +39,10 @@ export default abstract class AbstractController {
   }
 
   public async createTransaction(): Promise<ynab.SaveTransaction> {
+    if (this.amount === 0) {
+      throw new Error('Transaction is for 0.00; aborting');
+    }
+
     const transaction: ynab.SaveTransaction = {
       account_id: this.account_id,
       amount: this.amount,
