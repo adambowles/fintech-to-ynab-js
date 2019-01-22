@@ -24,7 +24,7 @@
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
-    "moment": "^2.23.0",
+    "moment": "^2.24.0",
     "ynab": "^1.10.0"
   },
   "devDependencies": {
