@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: K7gA3bY6/3gcqrUkOunJ376R6DV48x2xWrpTuY+isMg1qQhVOV7T0mQXO2K5bdnxkLl3m4XUo6pBwaDD/d/0Bt9juJWc7+SwHsQXKr2X/lC4UQ/xZrcctnZeeblbQNZACZVZ9zJJ3xPqqWcKlvTaymVWWZHBWAD3xIUZHMOL8aYbDZ3zmHNlZJTy5RNufg8P785LEKmA47idNL+LOO0TjMjq9wX/3ms7yH9wprc69mN/sntgBSYxHv0Z3q2MpVq/grLjbG6Lgvpm71Ed6kMxh2/dAPBhZT5wgmGAuF2E5NfBIBNlf7erCrFZ98c3TYEcj4+6secxHfB+RrWEzAZPRQzcqExyARihkqNAAtBsEagUh5Wj6vvaPxmBfrKCNRX2wGbo8Qc5DNMLvZ9o3Hfk393SbvMZg3BZ0C4Pp2Mh4IOBZHKPvGTDcvbwqiDhQwezEVCG0ayrMBZvmBmUJCX+3l6bhbQxWi9h7+sErnO5YtqWZeDKmOpV9dT/j2vuoD00s2hy1F0mK8q7GwrSHkhqMEqLuMhhhU0UzupZ2eQX/5MxrnbzQrKOkwsO6jiSiRAH8CC6feVdoLWzgjLQxJFcoL9YDe8UPICIAj6NORLOuVn3XYhqld7xtTt/6bGMRJgpam41mDHEAhDCA6bOvpt9ck1pKQOQHWiI9ixl2GXsRK8=
-  app: fintech-to-ynab-js
+  app: adambowles-to-ynab-js
   on:
     repo: adambowles/fintech-to-ynab-js
