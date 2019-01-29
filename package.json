@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./src/index.js",
     "watch": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' ./src/index.ts",
-    "postinstall": "tsc"
+    "postinstall": "tsc",
+    "test": "echo TODO"
   },
   "repository": {
     "type": "git",
