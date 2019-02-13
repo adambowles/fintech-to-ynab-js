@@ -5,7 +5,7 @@ require('dotenv').config();
 import AbstractController from './abstract';
 
 export default class StarlingController extends AbstractController {
-  public constructor(webhook: Starling.webhook) {
+  public constructor(webhook: Starling.Webhook) {
     super();
 
     console.log(

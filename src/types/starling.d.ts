@@ -4,7 +4,7 @@ declare namespace Starling {
     minorUnits: number;
   }
 
-  type webhookType = 'INTEREST_CHARGE' |
+  type WebhookType = 'INTEREST_CHARGE' |
     'SCHEDULED_PAYMENT_CANCELLED' |
     'SCHEDULED_PAYMENT_INSUFFICIENT_FUNDS' |
     'TRANSACTION_CARD' |
@@ -31,7 +31,7 @@ declare namespace Starling {
 
   type Status = 'PENDING' | 'SETTLED';
 
-  type transactionMethod =
+  type TransactionMethod =
     'CONTACTLESS' |
     'MAGNETIC_STRIP' |
     'MANUAL_KEY_ENTRY' |
@@ -44,7 +44,7 @@ declare namespace Starling {
     'NOT_APPLICABLE' |
     'UNKNOWN';
 
-  interface merchantPosData {
+  interface MerchantPosData {
     posTimestamp: string;
     cardLast4: string;
     authorisationCode: string;
@@ -52,10 +52,10 @@ declare namespace Starling {
     merchantIdentifier: string;
   }
 
-  export interface webhook {
+  export interface Webhook {
     webhookNotificationUid: string;
     customerUid: string;
-    webhookType: webhookType;
+    webhookType: WebhookType;
     eventUid: string;
     transactionAmount: CurrencyAndAmount;
     sourceAmount: CurrencyAndAmount;
@@ -64,9 +64,9 @@ declare namespace Starling {
     merchantUid: string;
     merchantLocationUid: string;
     status: Status;
-    transactionMethod: transactionMethod;
+    transactionMethod: TransactionMethod;
     transactionTimestamp: string;
-    merchantPosData: merchantPosData;
+    merchantPosData: MerchantPosData;
     accountHolderUid: string;
   }
 }
