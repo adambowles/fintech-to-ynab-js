@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import * as ynab from 'ynab';
 
 require('dotenv').config();
-const ynabAPI: ynab.api = new ynab.API(process.env.YNAB_ACCESS_TOKEN);
+const ynabAPI = new ynab.API(process.env.YNAB_ACCESS_TOKEN);
 
 export default abstract class AbstractController {
   public account_id: string;
