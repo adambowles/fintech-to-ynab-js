@@ -14,9 +14,14 @@ export default class StarlingController extends AbstractController {
     );
 
     this.account_id = process.env.YNAB_STARLING_ACCOUNT_ID;
-    this.amount = webhook.transactionAmount.minorUnits;
     this.date = webhook.transactionTimestamp;
     this.payee_name = this.determinePayeeName(webhook);
+
+    if (webhook.direction === 'PAYMENT') {
+      this.amount = Math.abs(webhook.transactionAmount.minorUnits) / 100;
+    } else {
+      this.amount = (Math.abs(webhook.transactionAmount.minorUnits) * -1) / 100;
+    }
 
     if (webhook.description) {
       this.memo = webhook.description;
