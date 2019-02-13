@@ -15,7 +15,7 @@ export default class StarlingController extends AbstractController {
 
     this.account_id = process.env.YNAB_STARLING_ACCOUNT_ID;
     this.date = webhook.transactionTimestamp;
-    this.payee_name = this.determinePayeeName(webhook);
+    this.payee_name = webhook.description.substr(0, 50);
 
     if (webhook.direction === 'PAYMENT') {
       this.amount = Math.abs(webhook.transactionAmount.minorUnits) / 100;
@@ -47,14 +47,4 @@ export default class StarlingController extends AbstractController {
       this.memo = `(${foreignAmount}) ${this.memo}`;
     }
   }
-
-  private readonly determinePayeeName = (
-    webhook: Starling.webhook,
-  ): string => {
-    try {
-      return webhook.description.substr(0, 50);
-    } catch (error) {
-      return '';
-    }
-  };
 }
