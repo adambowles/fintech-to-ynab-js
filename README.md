@@ -1,3 +1,4 @@
+[![Travis CI](https://travis-ci.org/adambowles/fintech-to-ynab-js.svg?branch=master)](https://travis-ci.org/adambowles/fintech-to-ynab-js)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/adambowles/fintech-to-ynab-js)
 
 # fintech-to-ynab-js
