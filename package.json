@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node ./src/index.js",
     "watch": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' ./src/index.ts",
-    "postinstall": "tsc",
     "build": "tsc",
     "test": "echo TODO"
   },
+  "heroku-run-build-script": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adambowles/fintech-to-ynab-js.git"
