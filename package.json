@@ -34,7 +34,7 @@
     "@types/dotenv": "6.1.0",
     "@types/koa": "2.0.48",
     "@types/koa-bodyparser": "5.0.2",
-    "@types/koa-router": "7.0.39",
+    "@types/koa-router": "7.0.40",
     "@types/moment": "2.13.0",
     "@types/node": "10.12.27",
     "nodemon": "1.18.10",
