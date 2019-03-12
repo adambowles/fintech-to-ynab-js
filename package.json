@@ -9,7 +9,6 @@
     "build": "tsc",
     "test": "echo TODO"
   },
-  "heroku-run-build-script": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adambowles/fintech-to-ynab-js.git"
