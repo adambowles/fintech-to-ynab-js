@@ -36,7 +36,7 @@
     "@types/koa-router": "7.0.40",
     "@types/moment": "2.13.0",
     "@types/node": "10.14.6",
-    "nodemon": "1.19.0",
+    "nodemon": "1.19.1",
     "ts-node": "8.1.0",
     "typescript": "3.4.5"
   }
