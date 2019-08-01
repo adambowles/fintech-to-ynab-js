@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/adambowles/fintech-to-ynab-js#readme",
   "dependencies": {
-    "currency-formatter": "1.5.4",
+    "currency-formatter": "1.5.5",
     "dotenv": "8.0.0",
     "koa": "2.7.0",
     "koa-bodyparser": "4.2.1",
