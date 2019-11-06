@@ -38,6 +38,6 @@
     "@types/node": "12.12.6",
     "nodemon": "1.19.4",
     "ts-node": "8.4.1",
-    "typescript": "3.6.4"
+    "typescript": "3.7.2"
   }
 }
