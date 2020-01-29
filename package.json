@@ -33,7 +33,7 @@
     "@types/dotenv": "8.2.0",
     "@types/koa": "2.11.0",
     "@types/koa-bodyparser": "5.0.2",
-    "@types/koa-router": "7.0.42",
+    "@types/koa-router": "7.4.0",
     "@types/moment": "2.13.0",
     "@types/node": "12.12.11",
     "nodemon": "2.0.2",
